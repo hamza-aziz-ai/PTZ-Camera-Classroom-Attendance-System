@@ -1,0 +1,22 @@
+{
+    "number-of-frames": 5,
+    "delay-between-frames": 1,
+    "delay-for-zoom-and-focus": 5,
+    "class-trace-presets": [
+        5, 6, 7, 8, 1,
+        9, 10, 11, 12, 1,
+        13, 14, 15, 16
+    ],
+    "reset-preset": 1,
+    "faculty-attendance": 4,
+    "positions_to_count_students": {
+        "right": {
+            "preset": 2,
+            "masking-polygon-vertices": []
+        },
+        "left": {
+            "preset": 3,
+            "masking-polygon-vertices": []
+        }
+    }
+}

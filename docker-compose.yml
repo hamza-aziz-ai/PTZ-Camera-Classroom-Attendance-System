@@ -1,0 +1,90 @@
+services:
+  classroom-attendance-ptz-camera:
+    image: ptz-classroom-face-recognition-producer-consumer:v-beta
+    build:
+      context: .
+      dockerfile: main.Dockerfile
+    container_name: ptz-classroom-face-recognition-producer-consumer
+    env_file:
+      - secrets.env
+    volumes:
+      - .:/Classroom-Attendance-System
+      - /workspace/FACE_RECOGNITION_ATTENDANCE_SYSTEM_LOGS/PTZ-Classroom-Attendance-System:/Classroom-Attendance-System/logs
+      - /workspace/CLASSROOM-ATTENDANCE-TESTING:/Classroom-Attendance-System/CLASSROOM-ATTENDANCE-TESTING
+    init: true
+    depends_on:
+      ptz-api:
+        condition: service_healthy
+      yolov9-person-detection-for-student-count:
+        condition: service_healthy
+      ptz-database-controller:
+        condition: service_healthy
+
+  ptz-database-controller:
+    image: ptz-classroom-face-recognition-database-controller:v-beta
+    build:
+      context: .
+      dockerfile: database-server.Dockerfile
+    container_name: ptz-classroom-face-recognition-database-controller
+    env_file:
+      - secrets.env
+    volumes:
+      - ./master.env:/Classroom-Attendance-System/master.env
+      - ./src:/Classroom-Attendance-System/src
+      - /workspace/FACE_RECOGNITION_ATTENDANCE_SYSTEM_LOGS/PTZ-Classroom-Attendance-System:/Classroom-Attendance-System/logs
+    ports:
+      - "20002:20002"
+    healthcheck:
+      test: ["CMD", "./src/database_server/healthcheck_db_controller.sh"]
+      #test: ["CMD", "nc", "-z", "-w", "1", "localhost", "20001"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+
+  ptz-api:
+    image: ptz-classroom-face-recognition-api:v-beta
+    build:
+      context: .
+      dockerfile: api.Dockerfile
+    container_name: ptz-classroom-face-recognition-api
+    env_file:
+      - secrets.env
+    volumes:
+      - ./master.env:/Classroom-Attendance-System/master.env
+      - ./src:/Classroom-Attendance-System/src
+      - /workspace/FACE_RECOGNITION_ATTENDANCE_SYSTEM_LOGS/PTZ-Classroom-Attendance-System:/Classroom-Attendance-System/logs
+      - /workspace/CLASSROOM-ATTENDANCE-TESTING:/Classroom-Attendance-System/CLASSROOM-ATTENDANCE-TESTING
+    ports:
+      - "9093:8000"
+    healthcheck:
+      test: ["CMD", "./src/api/healthcheck_api.sh"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+
+  yolov9-person-detection-for-student-count:
+    image: ptz-classroom-face-recognition-student-count:v-beta_yolov9
+    build:
+      context: .
+      dockerfile: student-count.Dockerfile
+    container_name: ptz-classroom-face-recognition-student-count_yolov9
+    volumes:
+      - ./master.env:/Classroom-Attendance-System/master.env
+      - ./src:/Classroom-Attendance-System/src
+      - /workspace/FACE_RECOGNITION_ATTENDANCE_SYSTEM_LOGS/PTZ-Classroom-Attendance-System:/Classroom-Attendance-System/logs
+    ports:
+      - "5011:5011"
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - capabilities: [ gpu ]
+              driver: nvidia
+              device_ids: [ "7:2" ]
+    healthcheck:
+      test: ["CMD", "./src/StudentCount/healthcheck_student_count.sh"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
