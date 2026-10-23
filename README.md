@@ -132,4 +132,4 @@ src/
 
 ## Credits
 
-Anubhav Patrick, Hamza Aziz, Kshitij Parashar. The counting service vendors [YOLOv9](https://github.com/WongKinYiu/yolov9), licensed under GPL-3.0 (`src/StudentCount/yolov9/LICENSE.md`).
+Developed by Hamza Aziz. The counting service vendors [YOLOv9](https://github.com/WongKinYiu/yolov9), licensed under GPL-3.0 (`src/StudentCount/yolov9/LICENSE.md`).

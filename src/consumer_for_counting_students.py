@@ -1,8 +1,7 @@
 """
 This module is created to fetch frames from a shared buffer and collect them in batches for face recognition.
 
-Original Author: Hamza Aziz
-Modified by: Anubhav Patrick
+Author: Hamza Aziz
 """
 
 from custom_logging import multicam_server_logger

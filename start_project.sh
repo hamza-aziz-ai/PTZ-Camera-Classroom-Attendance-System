@@ -1,8 +1,7 @@
 #!/bin/bash
 
 # Description: This script is used to deploy the project
-# Author: Anubhav Patrick
-# Modification: Hamza Aziz
+# Author: Hamza Aziz
 # Created: Thur September 14 2023
 # Modified: Tuesday, 4 June 2024
 

@@ -5,8 +5,7 @@ retrieved to compare them with the live stream face embeddings for facial recogn
 Reference: https://github.com/milvus-io/milvus
 
 Date: 7 August 2023
-Script Template Creator: Anubhav Patrick
-Authors: Hamza Aziz and Kshitij Parashar
+Author: Hamza Aziz
 """
 
 # Import Dependencies

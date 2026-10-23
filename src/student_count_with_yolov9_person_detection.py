@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-@Author: Anubhav Patrick, Hamza Aziz
+@Author: Hamza Aziz
 """
 
 # importing the required libraries

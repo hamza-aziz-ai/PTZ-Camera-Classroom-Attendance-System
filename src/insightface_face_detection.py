@@ -1,7 +1,7 @@
 """
 This module is created to get the encodings of the faces present in a batch of frames
 
-Author: Hamza Aziz and Kshitij Parashar
+Author: Hamza Aziz
 """
 
 import requests
