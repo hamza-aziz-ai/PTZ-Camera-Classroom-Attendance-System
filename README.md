@@ -1,8 +1,10 @@
 # PTZ Camera Classroom Attendance System
 
+> **Moved.** PTZ attendance is now part of the CCTV Face Recognition Attendance System, under its `PTZ/` folder, where it runs alongside the CCTV stack with its own database logins, durable writes and CCTV sign-in. New work happens there; this repository is kept for reference.
+
 Lecture-wise classroom attendance from a single PTZ camera per room. The camera sweeps ONVIF presets across the classroom, faces are matched against enrolled embeddings in Milvus, a YOLOv9 service estimates the headcount, results are stored in PostgreSQL, and attendance is pushed to the institute's ERP every 5 minutes.
 
-This project extends [Multi-Person-Face-Recognition](https://github.com/anubhavpatrick/Multi-Person-Face-Recognition) (the CCTV attendance system) and reuses its standalone InsightFace-REST, Milvus and PostgreSQL services.
+This project extends the CCTV attendance system and reuses its standalone InsightFace-REST, Milvus and PostgreSQL services.
 
 ## Architecture
 
